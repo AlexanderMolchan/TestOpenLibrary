@@ -90,7 +90,6 @@ extension MainViewController: UITableViewDataSource {
         BookCell(bookModel: booksArray[indexPath.row])
     }
     
-    
 }
 
 extension MainViewController: UITableViewDelegate {

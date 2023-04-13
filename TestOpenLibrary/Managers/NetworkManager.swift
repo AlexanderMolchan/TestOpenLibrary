@@ -11,7 +11,7 @@ import Moya
 typealias ObjectBlock<T: Decodable> = ((T) -> Void)
 typealias Failure = ((Error) -> Void)
 
-class ProviderManager {
+final class ProviderManager {
     private let provider = MoyaProvider<ApiManager>(plugins: [NetworkLoggerPlugin()])
     
     func getBooksData(success: ObjectBlock<ResponseData>?, failure: Failure?) {
