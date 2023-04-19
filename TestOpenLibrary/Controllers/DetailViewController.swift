@@ -59,6 +59,9 @@ final class DetailViewController: UIViewController {
         controllerConfiguration()
     }
     
+    // MARK: -
+    // MARK: - Configurations
+    
     private func controllerConfiguration() {
         layoutElements()
         makeConstraints()
@@ -97,10 +100,17 @@ final class DetailViewController: UIViewController {
         }
     }
     
+    // MARK: -
+    // MARK: - Logic
+    
     private func setupData() {
         view.backgroundColor = .white
+        var snippetsString = ""
         
-        var snippetsString = "\nDate of first published \(bookModel.firstPublishYear)\n"
+        if let year = bookModel.firstPublishYear {
+            snippetsString = "\nDate of first published \(year)\n"
+        }
+        
         bookModel.snippet?.forEach({ snippet in
             snippetsString += snippet
             snippetsString += "\n"
@@ -108,11 +118,12 @@ final class DetailViewController: UIViewController {
         
         titleLabel.text = bookModel.name
         infoLabel.text = "Rating: \(bookModel.rate ?? 0.0)\(snippetsString)"
-        bookImage.image = UIImage(systemName: "cloud.circle")
+        bookImage.image = UIImage(named: "NotFound")?.withTintColor(.magenta, renderingMode: .automatic)
 
         guard let id = bookModel.imageId else { return }
         let stringId = String(id)
-        bookImage.sd_setImage(with: URL(string: stringId.formatImageUrl() ))
+        
+        bookImage.sd_setImage(with: URL(string: stringId.formatImageUrl()), placeholderImage: UIImage(systemName: "icloud.and.arrow.down"), options: .progressiveLoad)
     }
     
     @objc private func confirm() {

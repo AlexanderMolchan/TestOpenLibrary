@@ -46,6 +46,9 @@ final class BookCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: -
+    // MARK: - Configurations
+    
     private func configurateCell() {
         layoutElements()
         makeConstraints()
@@ -76,17 +79,27 @@ final class BookCell: UITableViewCell {
         }
     }
     
+    // MARK: -
+    // MARK: - Logic
+    
     private func setupData() {
         titleLabel.text = bookModel.name
-        firstDateLabel.text = "Year of first publish: \(bookModel.firstPublishYear)"
-        bookImage.image = UIImage(systemName: "cloud.circle")
+        bookImage.image = UIImage(named: "NotFound")?.withTintColor(.magenta, renderingMode: .automatic)
+        
+        if let year = bookModel.firstPublishYear {
+            firstDateLabel.text = "Year of first publish: \(year)"
+        }
         
         guard let id = bookModel.imageId else { return }
         let stringId = String(id)
-        bookImage.sd_setImage(with: URL(string: stringId.formatImageUrl() ))
+        
+        bookImage.sd_setImage(with: URL(string: stringId.formatImageUrl()), placeholderImage: UIImage(systemName: "icloud.and.arrow.down"), options: .progressiveLoad)
     }
     
 }
+
+// MARK: -
+// MARK: - String Extension
 
 extension String {
     func formatImageUrl() -> String {

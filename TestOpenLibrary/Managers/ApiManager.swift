@@ -38,7 +38,7 @@ extension ApiManager: TargetType {
         var parameters = [String: Any]()
         switch self {
             case .getBooksList:
-                parameters["q"] = "j.+k.+rowling"
+                parameters["subject"] = "Potter"
             }
         return parameters
     }

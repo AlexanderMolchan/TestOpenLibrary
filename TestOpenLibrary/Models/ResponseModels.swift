@@ -13,12 +13,12 @@ struct ResponseData: Decodable {
     enum CodingKeys: String, CodingKey {
         case docs = "docs"
     }
-
+    
 }
 
 struct BookObject: Decodable {
     var name: String
-    var firstPublishYear: Int
+    var firstPublishYear: Int?
     var rate: Double?
     var snippet : [String]?
     var imageId: Int?
@@ -30,5 +30,6 @@ struct BookObject: Decodable {
         case snippet = "first_sentence"
         case imageId = "cover_i"
     }
+    
 }
 

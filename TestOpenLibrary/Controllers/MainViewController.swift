@@ -20,7 +20,6 @@ final class MainViewController: UIViewController {
     private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.color = .magenta
-        
         return spinner
     }()
     
@@ -35,6 +34,9 @@ final class MainViewController: UIViewController {
         controllerConfiguration()
         getData()
     }
+    
+    // MARK: -
+    // MARK: - Configurations
     
     private func controllerConfiguration() {
         registerCells()
@@ -61,6 +63,9 @@ final class MainViewController: UIViewController {
         }
     }
     
+    // MARK: -
+    // MARK: - Logic
+    
     private func getData() {
         spinner.startAnimating()
         ProviderManager().getBooksData { [weak self] responce in
@@ -81,6 +86,9 @@ final class MainViewController: UIViewController {
     
 }
 
+// MARK: -
+// MARK: - TableViewDataSource Extension
+
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         booksArray.count
@@ -92,8 +100,12 @@ extension MainViewController: UITableViewDataSource {
     
 }
 
+// MARK: -
+// MARK: - TableViewDelegate Extension
+
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let detailVc = DetailViewController(bookModel: booksArray[indexPath.row])
         present(detailVc, animated: true)
     }
